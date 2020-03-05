@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block body %}
+  {% if added %}
+  <b&gt; Added invoice  </b>
+  {% endif %}
+    
+  <h1> List of invoices {{customer.name}}</h1>
+  <p>
+  <table>
+    <tr>
+      <th class="x1">Date</th> <th>Particulars</th> <th>Amount</th> 
+    </tr>
+    {% for invoice in invoices %}
+    <tr>
+      <td>{{invoice.date}}</td>
+      <td>{{invoice.particulars}}</td>
+      <td>{{invoice.amount}}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  <h1> Add new invoice </h1>
+  <form action="/invoices" method='post'>
+    <input type="hidden"  name="cid" value="{{customer.id}}"/>
+    <label for="particulars"> Particulars </label>
+    <input type="text" id="particulars" name="particulars" />
+    <br/>
+    <label for="amount"> Amount </label>
+    <input type="text" id = "amount" name="amount" />
+    <input type="submit" name="submit" value="add invoice"/>
+  </form>
+  </p>
+{% endblock %}
