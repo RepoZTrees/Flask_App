@@ -28,7 +28,6 @@ def create_invoice():
     particulars = request.form['particulars']
     amount = request.form['amount']
     cid = request.form['cid']
-    
     invoice = models.Invoice(date = datetime.date.today(),
                              particulars = particulars,
                              customer_id = int(cid),
@@ -38,3 +37,19 @@ def create_invoice():
     session.commit()
     return redirect(url_for('invoices', cid=cid, info="added"))
     
+
+@app.route("/", methods=['POST'])
+def create_customers():
+    session = models.get_session()
+    name = request.form['name']
+    address = request.form['address']
+    email = request.form['email']
+    new_customer = models.Customer(jdate = datetime.date.today(),
+                                   name = name,
+                                   address = address,
+                                   email = email)
+    
+    session.add(new_customer)
+    session.commit()
+    return redirect(url_for('hello', info="added"))
+
