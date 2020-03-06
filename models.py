@@ -1,5 +1,4 @@
 import random
- 
 import faker
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, String, Integer, create_engine, ForeignKey, BLOB, Date, Boolean, Table
@@ -25,13 +24,13 @@ class Invoice(Base):
     customer_id = Column(Integer, ForeignKey('customers_list.id'))
  
 def create_db():
-    url = "postgres:///flask_invoices"
+    url = "postgres:///flask_customer_invoice"
     # url = "sqlite:///invoice_db.sqlite"
     engine = create_engine(url)
     Base.metadata.create_all(engine)
  
 def get_session():
-    url = "postgres:///flask_invoices"
+    url = "postgres:///flask_customer_invoice"
     # url = "sqlite:///invoice_db.sqlite"
     engine = create_engine(url)
     Session = sessionmaker(bind = engine)
@@ -55,8 +54,7 @@ def main():
                               customer = c)
             session.add(invoice)
     session.commit()
-                               
-     
+                                
  
 if __name__ == "__main__":
     main()
